@@ -1,4 +1,4 @@
-﻿open Types
+open Types
 open StaticDiceResults
 open TestUtilities
 
@@ -20,17 +20,6 @@ let traverseDiceSet diceResults =
       for fstRes in fst do
         yield! seq { for sndRes in snd -> fstRes + sndRes }
     }
-  // let multiplyPossibleResults (fst: RollResult list) (snd: RollResult list) : RollResult list =
-  //   let partialResults =
-  //     fst
-  //     |> List.map (fun fstRes -> async { return List.map (fun sndRes -> fstRes + sndRes) snd })
-  //     |> fun res -> Async.Parallel(res, 8)
-  //     |> Async.RunSynchronously
-
-  //   List.fold
-  //     (fun acc elemArray -> List.fold (fun acc2 elem -> elem :: acc2) acc elemArray)
-  //     []
-  //     (Array.toList partialResults)
 
   let rec generate dices acc =
     match dices with
@@ -44,5 +33,5 @@ let runTest dicePool =
 
   printfn "Got %d results" (Seq.length testExample)
 
-for i in seq { 10..10 } do
+for i in seq { 8..8 } do
   timeMeasuredFunction (fun _ -> runTest (List.init i (fun _ -> Dice.Ability)))
